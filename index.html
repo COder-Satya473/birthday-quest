@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,6 @@
             color: var(--genshin-gold);
         }
 
-        /* Main Quest Log Container */
         .quest-container {
             width: 90%;
             max-width: 600px;
@@ -37,7 +37,6 @@
             flex-direction: column;
         }
 
-        /* Header / Banner */
         .quest-header {
             background-color: var(--genshin-dark);
             padding: 20px;
@@ -61,7 +60,6 @@
             font-weight: 600;
         }
 
-        /* Quest Details Content */
         .quest-body {
             padding: 25px;
             flex-grow: 1;
@@ -76,7 +74,6 @@
             padding-left: 15px;
         }
 
-        /* Steps Timeline */
         .objective-list {
             list-style: none;
             padding: 0;
@@ -130,7 +127,6 @@
             line-height: 1.4;
         }
 
-        /* Rewards Section */
         .rewards-section {
             border-top: 1px dashed rgba(236, 229, 216, 0.3);
             padding-top: 20px;
@@ -147,6 +143,7 @@
         .rewards-display {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .reward-item {
@@ -160,7 +157,6 @@
             font-size: 0.9rem;
         }
 
-        /* Final Claim Button */
         .claim-btn {
             background-color: var(--genshin-accent);
             color: var(--genshin-dark);
@@ -171,7 +167,7 @@
             cursor: pointer;
             width: 100%;
             transition: background 0.2s;
-            display: none; /* Hidden until objectives are cleared */
+            display: none;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -180,7 +176,6 @@
             background-color: #ffffff;
         }
 
-        /* Success Message Overlay */
         .birthday-card {
             display: none;
             padding: 30px;
@@ -189,8 +184,14 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .heart-icon {
@@ -203,13 +204,11 @@
 <body>
 
     <div class="quest-container" id="questWindow">
-        <!-- Header -->
         <div class="quest-header">
             <p class="quest-category">✦ Event Commission ✦</p>
-            <h1 class="quest-title">The Teapot Companion's Birthday</h1>
+            <h1 class="quest-title">My Dear Luna's Birthday Commission</h1>
         </div>
 
-        <!-- Quest Content -->
         <div class="quest-body">
             <p class="quest-description">
                 "A special coordinate in the Serenitea Pot sparkles today. Before the traveler can unlock the final realm layout treasure, a series of simple daily duties must be fulfilled."
@@ -218,39 +217,58 @@
             <ul class="objective-list">
                 <li class="objective-item active" id="obj1">
                     <div class="checkbox" onclick="completeObjective(1)"></div>
-                    <div class="objective-text">Locate a cozy spot and grab your favorite sweet birthday treat (0/1)</div>
+                    <div class="objective-text">
+                        Locate a cozy spot and grab your favourite sweet birthday sweet, whatever you like. (0/1)
+                    </div>
                 </li>
+
                 <li class="objective-item" id="obj2">
                     <div class="checkbox" onclick="completeObjective(2)"></div>
-                    <div class="objective-text">Check your physical desk or mail for the package sent from afar (0/1)</div>
+                    <div class="objective-text">
+                        Check your cheek for the package of 1000000 kisses sent from afar just for my Milady. (0/1)
+                    </div>
                 </li>
+
                 <li class="objective-item" id="obj3">
                     <div class="checkbox" onclick="completeObjective(3)"></div>
-                    <div class="objective-text">Send a text message containing your favorite emoji to your co-op partner (0/1)</div>
+                    <div class="objective-text">
+                        Send a text message containing your favourite emoji. (0/1)
+                    </div>
                 </li>
             </ul>
 
             <div class="rewards-section">
                 <p class="rewards-title">Quest Rewards</p>
                 <div class="rewards-display">
-                    <div class="reward-item">💎 <span>Primogems × 1600</span></div>
+                    <div class="reward-item">💎 <span>Primogems × 16000000</span></div>
                     <div class="reward-item">❤️ <span>Endless Affection × Max</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- Action Button -->
-        <button class="claim-btn" id="claimBtn" onclick="showBirthdayCard()">Claim Rewards</button>
+        <button class="claim-btn" id="claimBtn" onclick="showBirthdayCard()">
+            Claim Rewards
+        </button>
     </div>
 
-    <!-- Hidden Birthday Message Card -->
     <div class="quest-container birthday-card" id="birthdayCard">
         <div class="heart-icon">🏡</div>
-        <h1 style="color: var(--genshin-accent); margin-bottom: 10px;">Quest Clear!</h1>
+
+        <h1 style="color: var(--genshin-accent); margin-bottom: 10px;">
+            Quest Clear!
+        </h1>
+
         <p style="font-size: 1.2rem; line-height: 1.6; color: #ffffff;">
-            Happy Birthday! 🎉<br><br>
-            Even though we only interact through letters and text messages on Messenger, building our world together inside the Serenitea Pot has been my favorite adventure. Thank you for being my favorite person to quietly explore with. <br><br>
-            Now, log into the game whenever you're ready—your real birthday build is waiting for you in our realm!
+            Happy Birthday My Dear Anastasia! 🎉<br><br>
+
+            Even though we only interact through letters and text messages on
+            Messenger, building our world together inside the Serenitea Pot has
+            been my favorite adventure. Thank you for being my favorite person
+            to quietly explore with.
+            <br><br>
+
+            Now, log into the game whenever you're ready—your real birthday
+            build is waiting for you in our realm!
         </p>
     </div>
 
@@ -259,7 +277,7 @@
         const totalSteps = 3;
 
         function completeObjective(stepNumber) {
-            if (stepNumber !== currentStep) return; // Must do them in order
+            if (stepNumber !== currentStep) return;
 
             const currentObj = document.getElementById(`obj${stepNumber}`);
             currentObj.classList.remove('active');
@@ -270,7 +288,6 @@
                 const nextObj = document.getElementById(`obj${currentStep}`);
                 nextObj.classList.add('active');
             } else {
-                // All steps done!
                 document.getElementById('claimBtn').style.display = 'block';
             }
         }
@@ -280,5 +297,7 @@
             document.getElementById('birthdayCard').style.display = 'block';
         }
     </script>
+
 </body>
 </html>
+```
