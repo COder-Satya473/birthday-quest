@@ -1,0 +1,303 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Handbook: Birthday Commission</title>
+    <style>
+        :root {
+            --genshin-gold: #ece5d8;
+            --genshin-dark: #3a414f;
+            --genshin-accent: #edd2a1;
+            --genshin-bg: #4a5265;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c2029;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--genshin-gold);
+        }
+
+        .quest-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: var(--genshin-bg);
+            border: 3px solid var(--genshin-accent);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quest-header {
+            background-color: var(--genshin-dark);
+            padding: 20px;
+            border-bottom: 2px solid var(--genshin-accent);
+            text-align: center;
+        }
+
+        .quest-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--genshin-accent);
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+
+        .quest-title {
+            font-size: 1.6rem;
+            margin: 0;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .quest-body {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .quest-description {
+            font-style: italic;
+            color: #b5bdcb;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            border-left: 3px solid var(--genshin-accent);
+            padding-left: 15px;
+        }
+
+        .objective-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+        }
+
+        .objective-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .objective-item.completed {
+            opacity: 0.5;
+            text-decoration: line-through;
+            border-left: 4px solid #4ade80;
+        }
+
+        .objective-item.active {
+            border-left: 4px solid var(--genshin-accent);
+            box-shadow: 0 0 10px rgba(237, 210, 161, 0.2);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--genshin-accent);
+            border-radius: 4px;
+            margin-right: 15px;
+            margin-top: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .objective-item.completed .checkbox::after {
+            content: "✓";
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .objective-text {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .rewards-section {
+            border-top: 1px dashed rgba(236, 229, 216, 0.3);
+            padding-top: 20px;
+        }
+
+        .rewards-title {
+            font-size: 0.9rem;
+            color: var(--genshin-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .rewards-display {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .reward-item {
+            background-color: var(--genshin-dark);
+            border: 1px solid var(--genshin-accent);
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .claim-btn {
+            background-color: var(--genshin-accent);
+            color: var(--genshin-dark);
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .claim-btn:hover {
+            background-color: #ffffff;
+        }
+
+        .birthday-card {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .heart-icon {
+            font-size: 3rem;
+            color: #ef4444;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quest-container" id="questWindow">
+        <div class="quest-header">
+            <p class="quest-category">✦ Event Commission ✦</p>
+            <h1 class="quest-title">My Dear Luna's Birthday Commission</h1>
+        </div>
+
+        <div class="quest-body">
+            <p class="quest-description">
+                "A special coordinate in the Serenitea Pot sparkles today. Before the traveler can unlock the final realm layout treasure, a series of simple daily duties must be fulfilled."
+            </p>
+
+            <ul class="objective-list">
+                <li class="objective-item active" id="obj1">
+                    <div class="checkbox" onclick="completeObjective(1)"></div>
+                    <div class="objective-text">
+                        Locate a cozy spot and grab your favourite sweet birthday sweet, whatever you like. (0/1)
+                    </div>
+                </li>
+
+                <li class="objective-item" id="obj2">
+                    <div class="checkbox" onclick="completeObjective(2)"></div>
+                    <div class="objective-text">
+                        Check your cheek for the package of 1000000 kisses sent from afar just for my Milady. (0/1)
+                    </div>
+                </li>
+
+                <li class="objective-item" id="obj3">
+                    <div class="checkbox" onclick="completeObjective(3)"></div>
+                    <div class="objective-text">
+                        Send a text message containing your favourite emoji. (0/1)
+                    </div>
+                </li>
+            </ul>
+
+            <div class="rewards-section">
+                <p class="rewards-title">Quest Rewards</p>
+                <div class="rewards-display">
+                    <div class="reward-item">💎 <span>Primogems × 16000000</span></div>
+                    <div class="reward-item">❤️ <span>Endless Affection × Max</span></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="claim-btn" id="claimBtn" onclick="showBirthdayCard()">
+            Claim Rewards
+        </button>
+    </div>
+
+    <div class="quest-container birthday-card" id="birthdayCard">
+        <div class="heart-icon">🏡</div>
+
+        <h1 style="color: var(--genshin-accent); margin-bottom: 10px;">
+            Quest Clear!
+        </h1>
+
+        <p style="font-size: 1.2rem; line-height: 1.6; color: #ffffff;">
+            Happy Birthday My Dear Anastasia! 🎉<br><br>
+
+            Even though we only interact through letters and text messages on
+            Messenger, building our world together inside the Serenitea Pot has
+            been my favorite adventure. Thank you for being my favorite person
+            to quietly explore with.
+            <br><br>
+
+            Now, log into the game whenever you're ready—your real birthday
+            build is waiting for you in our realm!
+        </p>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function completeObjective(stepNumber) {
+            if (stepNumber !== currentStep) return;
+
+            const currentObj = document.getElementById(`obj${stepNumber}`);
+            currentObj.classList.remove('active');
+            currentObj.classList.add('completed');
+
+            if (currentStep < totalSteps) {
+                currentStep++;
+                const nextObj = document.getElementById(`obj${currentStep}`);
+                nextObj.classList.add('active');
+            } else {
+                document.getElementById('claimBtn').style.display = 'block';
+            }
+        }
+
+        function showBirthdayCard() {
+            document.getElementById('questWindow').style.display = 'none';
+            document.getElementById('birthdayCard').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
+```
